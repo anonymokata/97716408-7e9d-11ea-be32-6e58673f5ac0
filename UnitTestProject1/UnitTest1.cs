@@ -53,20 +53,199 @@ namespace UnitTestProject1
 
         // horizontal reverse search test
 
+        [DataTestMethod]
+        [DataRow("KIRK", DisplayName = "KIRK")]
+        public void Search_HorizontalReverse(string word)
+        {
+            // Arrange 
+
+            List<XY> expectedPoints = new List<XY>
+            {
+                new XY(4,7),
+                new XY(3,7),
+                new XY(2,7),
+                new XY(1,7)
+            };
+
+            // Act
+
+            WordSearch wordSearch = new WordSearch(GetMatrix());
+            var actualPoints = wordSearch.HorizontalReverseSearch(word);
+            XYComparer xYComparer = new XYComparer();
+
+            // Assert
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
+        }
+
         // vertical search test
+
+        [DataTestMethod]
+        [DataRow("BONES", DisplayName = "BONES")]
+        public void Search_Vertical_Downward(string word)
+        {
+            // Arrange 
+
+            List<XY> expectedPoints = new List<XY>
+            {
+                new XY(0,6),
+                new XY(0,7),
+                new XY(0,8),
+                new XY(0,9),
+                new XY(0,10)
+            };
+
+            // Act
+
+            WordSearch wordSearch = new WordSearch(GetMatrix());
+            var actualPoints = wordSearch.VerticalDownwardSearch(word);
+            XYComparer xYComparer = new XYComparer();
+
+            // Assert
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
+        }
 
         // vertical reverse search test
 
+        [DataTestMethod]
+        [DataRow("KHAN", DisplayName = "KHAN")]
+        public void Search_Vertical_Upward(string word)
+        {
+            // Arrange 
+
+            List<XY> expectedPoints = new List<XY>
+            {
+               new XY(5, 9),
+                new XY(5, 8),
+                new XY(5, 7 ),
+                new XY(5, 6 )
+            };
+
+            // Act
+
+            WordSearch wordSearch = new WordSearch(GetMatrix());
+            var actualPoints = wordSearch.VerticalUpwardSearch(word);
+            XYComparer xYComparer = new XYComparer();
+
+            // Assert
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
+        }
+
         // diagonal search test
+
+        [DataTestMethod]
+        [DataRow("SPOCK", DisplayName = "SPOCK")]
+        public void Search_Diagonal_Downward(string word)
+        {
+            // Arrange 
+
+            List<XY> expectedPoints = new List<XY>
+            {
+                new XY(2,1),
+                new XY(3,2),
+                new XY(4,3),
+                new XY(5,4 ),
+                new XY(6,5)
+            };
+
+            // Act
+
+            WordSearch wordSearch = new WordSearch(GetMatrix());
+            var actualPoints = wordSearch.DiagonalDownwardSearch(word);
+            XYComparer xYComparer = new XYComparer();
+
+            // Assert
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
+        }
 
         // diagonal reverse search test
 
+        [DataTestMethod]
+        [DataRow("SULU", DisplayName = "SULU")]
+        public void Search_Diagonal_Upward(string word)
+        {
+            // Arrange 
+
+            List<XY> expectedPoints = new List<XY>
+            {
+                new XY(3,3),
+                new XY(2,2),
+                new XY(1,1 ),
+                new XY(0,0 )
+            };
+
+            // Act
+
+            WordSearch wordSearch = new WordSearch(GetMatrix());
+            var actualPoints = wordSearch.DiagonalUpwardSearch(word);
+            XYComparer xYComparer = new XYComparer();
+
+            // Assert
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
+        }
+
+
         // diagonal2 search test
+
+        [DataTestMethod]
+        [DataRow("UHURA", DisplayName = "UHURA")]
+        public void Search_Diagonal2_Downward(string word)
+        {
+            // Arrange 
+
+            List<XY> expectedPoints = new List<XY>
+            {
+                new XY(4,0),
+                new XY(3,1),
+                new XY(2,2),
+                new XY(1,3),
+                new XY(0,4)
+            };
+
+            // Act
+
+            WordSearch wordSearch = new WordSearch(GetMatrix());
+            var actualPoints = wordSearch.Diagonal2DownwardSearch(word);
+            XYComparer xYComparer = new XYComparer();
+
+            // Assert
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
+        }
 
         // diagonal2 reverse search test
 
+        [DataTestMethod]
+        [DataRow("BCOSJ", DisplayName = "BCOSJ")]
+        public void Search_Diagonal2_Upward(string word)
+        {
+            // Arrange 
 
-        // other private methods
+            List<XY> expectedPoints = new List<XY>
+            {
+                new XY(0,6),
+                new XY(1,5),
+                new XY(2,4 ),
+                new XY(3,3 ),
+                new XY(4,2 )
+            };
+
+            // Act
+
+            WordSearch wordSearch = new WordSearch(GetMatrix());
+            var actualPoints = wordSearch.Diagonal2UpwardSearch(word);
+            XYComparer xYComparer = new XYComparer();
+
+            // Assert
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
+        }
+
+        //// other private methods
 
         // search space
         private List<char[]> GetMatrix()

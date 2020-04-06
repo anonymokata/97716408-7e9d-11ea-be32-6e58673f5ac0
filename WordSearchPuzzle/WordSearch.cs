@@ -58,6 +58,307 @@ namespace WordSearchPuzzle
 
             return res;
         }
+
+        /// <summary>
+        /// Search word from right to left horizontally
+        /// </summary>
+        /// 
+        public List<XY> HorizontalReverseSearch(string word)
+        {
+            List<XY> res = new List<XY>();
+
+            wordDetail = this.wordDetail ?? new WordDetail(matrix, word);
+
+            foreach (var firstCharXY in wordDetail.CharDetails[0].XYs)
+            {
+                res = new List<XY>
+                {
+                    firstCharXY
+                };
+
+                for (int i = 1; i < wordDetail.CharDetails.Count; i++)
+                {
+                    var items = wordDetail.CharDetails[i].XYs
+                        .Where(c => c.Y == firstCharXY.Y && c.X == res.Last().X - 1)
+                        .ToList();
+
+                    if (items.Count() == 1)
+                    {
+                        res.Add(items[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // break and return for the first word found
+                if (res.Count == wordDetail.CharDetails.Count)
+                {
+                    break;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Search word vertically from top to bottom
+        /// </summary>
+
+        public List<XY> VerticalDownwardSearch(string word)
+        {
+            List<XY> res = new List<XY>();
+
+            wordDetail = this.wordDetail ?? new WordDetail(matrix, word);
+
+            foreach (var firstCharXY in wordDetail.CharDetails[0].XYs)
+            {
+                res = new List<XY>
+                {
+                    firstCharXY
+                };
+
+                for (int i = 1; i < wordDetail.CharDetails.Count; i++)
+                {
+                    var items = wordDetail.CharDetails[i].XYs
+                        .Where(c => c.Y == res.Last().Y + 1 && c.X == firstCharXY.X)
+                        .ToList();
+
+                    if (items.Count() == 1)
+                    {
+                        res.Add(items[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // break and return for the first word found
+                if (res.Count == wordDetail.CharDetails.Count)
+                {
+                    break;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Search word vertically from bottom to top
+        /// </summary>
+
+        public List<XY> VerticalUpwardSearch(string word)
+        {
+            List<XY> res = new List<XY>();
+
+            this.wordDetail = this.wordDetail ?? new WordDetail(matrix, word);
+
+            foreach (var firstCharXY in wordDetail.CharDetails[0].XYs)
+            {
+                res = new List<XY>
+                {
+                    firstCharXY
+                };
+
+                for (int i = 1; i < wordDetail.CharDetails.Count; i++)
+                {
+                    var items = wordDetail.CharDetails[i].XYs
+                        .Where(c => c.Y == res.Last().Y - 1 && c.X == firstCharXY.X)
+                        .ToList();
+
+                    if (items.Count() == 1)
+                    {
+                        res.Add(items[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // break and return for the first word found
+                if (res.Count == wordDetail.CharDetails.Count)
+                {
+                    break;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Search word diagonally downward from left to right
+        /// </summary>
+
+        public List<XY> DiagonalDownwardSearch(string word)
+        {
+            List<XY> res = new List<XY>();
+
+            this.wordDetail = this.wordDetail ?? new WordDetail(matrix, word);
+
+            foreach (var firstCharXY in wordDetail.CharDetails[0].XYs)
+            {
+                res = new List<XY>
+                {
+                    firstCharXY
+                };
+
+                for (int i = 1; i < wordDetail.CharDetails.Count; i++)
+                {
+                    var items = wordDetail.CharDetails[i].XYs
+                        .Where(c => c.Y == res.Last().Y + 1 && c.X == res.Last().X + 1)
+                        .ToList();
+
+                    if (items.Count() == 1)
+                    {
+                        res.Add(items[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // break and return for the first word found
+                if (res.Count == wordDetail.CharDetails.Count)
+                {
+                    break;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Search word diagonally upward from right to left
+        /// </summary>
+
+        public List<XY> DiagonalUpwardSearch(string word)
+        {
+            List<XY> res = new List<XY>();
+
+            this.wordDetail = this.wordDetail ?? new WordDetail(matrix, word);
+
+            foreach (var firstCharXY in wordDetail.CharDetails[0].XYs)
+            {
+                res = new List<XY>
+                {
+                    firstCharXY
+                };
+
+                for (int i = 1; i < wordDetail.CharDetails.Count; i++)
+                {
+                    var items = wordDetail.CharDetails[i].XYs
+                        .Where(c => c.Y == res.Last().Y - 1 && c.X == res.Last().X - 1)
+                        .ToList();
+
+                    if (items.Count() == 1)
+                    {
+                        res.Add(items[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // break and return for the first word found
+                if (res.Count == wordDetail.CharDetails.Count)
+                {
+                    break;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Search word diagonally downward from right to left
+        /// </summary>
+
+        public List<XY> Diagonal2DownwardSearch(string word)
+        {
+            List<XY> res = new List<XY>();
+
+            this.wordDetail = this.wordDetail ?? new WordDetail(matrix, word);
+
+            foreach (var firstCharXY in wordDetail.CharDetails[0].XYs)
+            {
+                res = new List<XY>
+                {
+                    firstCharXY
+                };
+
+                for (int i = 1; i < wordDetail.CharDetails.Count; i++)
+                {
+                    var items = wordDetail.CharDetails[i].XYs
+                        .Where(c => c.Y == res.Last().Y + 1 && c.X == res.Last().X - 1)
+                        .ToList();
+
+                    if (items.Count() == 1)
+                    {
+                        res.Add(items[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // break and return for the first word found
+                if (res.Count == wordDetail.CharDetails.Count)
+                {
+                    break;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Search word diagonally upward from left to right
+        /// </summary>
+
+        public List<XY> Diagonal2UpwardSearch(string word)
+        {
+            List<XY> res = new List<XY>();
+
+            this.wordDetail = this.wordDetail ?? new WordDetail(matrix, word);
+
+            foreach (var firstCharXY in wordDetail.CharDetails[0].XYs)
+            {
+                res = new List<XY>
+                {
+                    firstCharXY
+                };
+
+                for (int i = 1; i < wordDetail.CharDetails.Count; i++)
+                {
+                    var items = wordDetail.CharDetails[i].XYs
+                        .Where(c => c.Y == res.Last().Y - 1 && c.X == res.Last().X + 1)
+                        .ToList();
+
+                    if (items.Count() == 1)
+                    {
+                        res.Add(items[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // break and return for the first word found
+                if (res.Count == wordDetail.CharDetails.Count)
+                {
+                    break;
+                }
+            }
+
+            return res;
+        }
     }
 
     public class CharDetail
