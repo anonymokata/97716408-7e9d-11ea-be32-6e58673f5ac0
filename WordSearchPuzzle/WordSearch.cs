@@ -9,25 +9,92 @@ namespace WordSearchPuzzle
     public class WordSearch
     {
         private List<char[]> matrix;
+        private WordDetail wordDetail;
 
         public WordSearch(List<char[]> charArrListMatrix)
         {
             this.matrix = charArrListMatrix;
         }
 
+        /// <summary>
+        /// Search word from left to right horizontally
+        /// </summary>
+        
         public List<XY> HorizontalSearch(string word)
         {
-            return new List<XY>
+            List<XY> res = new List<XY>();
+
+            wordDetail = this.wordDetail ?? new WordDetail(matrix, word);
+
+            foreach (var firstCharXY in wordDetail.CharDetails[0].XYs)
+            {
+                res = new List<XY>
                 {
-                    new XY(0, 5),
-                    new XY(1, 5),
-                    new XY(2, 5),
-                    new XY(3, 5),
-                    new XY(4, 5),
-                    new XY(5, 5)
+                    firstCharXY
                 };
+
+                for (int i = 1; i < wordDetail.CharDetails.Count; i++)
+                {
+                    var items = wordDetail.CharDetails[i].XYs
+                        .Where(c => c.Y == firstCharXY.Y && c.X == res.Last().X + 1)
+                        .ToList();
+
+                    if (items.Count() == 1)
+                    {
+                        res.Add(items[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // break and return for the first word found
+                if (res.Count == wordDetail.CharDetails.Count)
+                {
+                    break;
+                }
+            }
+
+            return res;
         }
     }
+
+    public class CharDetail
+    {
+        public List<XY> XYs { get; set; }
+        public char Character { get; set; }
+        public CharDetail(List<char[]> matrix, char c)
+        {
+            Character = c;
+            XYs = new List<XY>();
+            for (int y = 0; y < matrix.Count; y++)
+            {
+                for (int x = 0; x < matrix[y].Length; x++)
+                {
+                    if (matrix[y][x] == c)
+                    {
+                        XYs.Add(new XY(x,y));
+                    }
+                }
+            }
+        }
+    }
+    public class WordDetail
+    {
+        public List<CharDetail> CharDetails { get; set; }
+        public string Word { get; set; }
+        public WordDetail(List<char[]> matrix, string word)
+        {
+            Word = word;
+            CharDetails = new List<CharDetail>();
+            foreach (char c in word)
+            {
+                CharDetails.Add(new CharDetail(matrix, c));
+            }
+        }
+    }
+
     public class XY
     {
         public int X { get; set; }

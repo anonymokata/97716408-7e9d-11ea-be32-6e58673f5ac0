@@ -34,9 +34,9 @@ namespace UnitTestProject1
             {
                 new XY(0, 5),
                 new XY(1, 5),
-                new XY(2, 5 ),
-                new XY(3, 5 ),
-                new XY(4, 5 ),
+                new XY(2, 5),
+                new XY(3, 5),
+                new XY(4, 5),
                 new XY(5, 5)
             };
 
