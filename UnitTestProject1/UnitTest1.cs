@@ -10,16 +10,24 @@ namespace UnitTestProject1
     {
         // search word
 
-        [TestMethod]
-        public void Search()
+        [DataTestMethod]
+        [DynamicData(nameof(TestCases), DynamicDataSourceType.Property)]
+        public void Search(object obj, object objj)
         {
 
-            // arrange
+            // Arrange 
+            string word = (string)obj;
+            List<XY> expectedPoints = (List<XY>)objj;
 
-            // act
+            // Act
 
-            // assert
-            Assert.Fail();
+            WordSearch wordSearch = new WordSearch(GetMatrix());
+            var actualPoints = wordSearch.Search(word);
+            XYComparer xYComparer = new XYComparer();
+
+            // Assert
+
+            CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
         }
 
         // horizontal search test
@@ -245,7 +253,7 @@ namespace UnitTestProject1
             CollectionAssert.AreEqual(expectedPoints, actualPoints, xYComparer);
         }
 
-        //// other private methods
+        //// other private methods for storing data
 
         // search space
         private List<char[]> GetMatrix()
@@ -268,6 +276,91 @@ namespace UnitTestProject1
                 "W,Z,M,I,S,U,K,U,R,B,I,D,U,X,S".Split(',').Select(c=>c[0]).ToArray(),
                 "K,Y,L,B,Q,Q,P,M,D,F,C,K,E,A,B".Split(',').Select(c=>c[0]).ToArray()
             };
+        }
+
+        // test cases
+        public static IEnumerable<object[]> TestCases
+        {
+            get
+            {
+                // BONE
+                yield return new object[]{"BONES", new List<XY>()
+                {
+                    new XY(0,6),
+                    new XY(0,7),
+                    new XY(0,8),
+                    new XY(0,9),
+                    new XY(0,10 )
+                } };
+
+                // KHAN
+                yield return new object[]{"KHAN", new List<XY>
+                {
+                    new XY(5, 9),
+                    new XY(5, 8),
+                    new XY(5, 7 ),
+                    new XY(5, 6 )
+                } };
+
+                // KIRK
+                yield return new object[]{"KIRK", new List<XY>
+                {
+                    new XY(4,7),
+                    new XY(3,7),
+                    new XY(2,7 ),
+                    new XY(1,7 )
+                } };
+
+                // SCOTTY
+                yield return new object[]{"SCOTTY", new List<XY>
+                {
+                    new XY(0, 5),
+                    new XY(1, 5),
+                    new XY(2, 5 ),
+                    new XY(3, 5 ),
+                    new XY(4, 5 ),
+                    new XY(5, 5)
+                } };
+
+                // SPOCK
+                yield return new object[]{"SPOCK", new List<XY>
+                {
+                    new XY(2,1),
+                    new XY(3,2),
+                    new XY(4,3),
+                    new XY(5,4 ),
+                    new XY(6,5)
+                } };
+
+                // SULU
+                yield return new object[]{"SULU", new List<XY>
+                {
+                    new XY(3,3),
+                    new XY(2,2),
+                    new XY(1,1 ),
+                    new XY(0,0 )
+                } };
+
+                // UHURA
+                yield return new object[]{"UHURA", new List<XY>
+                {
+                    new XY(4,0),
+                    new XY(3,1),
+                    new XY(2,2),
+                    new XY(1,3 ),
+                    new XY(0,4)
+                } };
+
+                // LUVEE
+                yield return new object[]{"BCOSJ", new List<XY>
+                {
+                    new XY(0,6),
+                    new XY(1,5),
+                    new XY(2,4),
+                    new XY(3,3 ),
+                    new XY(4,2)
+                } };
+            }
         }
 
     }

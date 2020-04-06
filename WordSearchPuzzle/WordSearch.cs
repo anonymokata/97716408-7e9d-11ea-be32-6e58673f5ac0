@@ -17,9 +17,90 @@ namespace WordSearchPuzzle
         }
 
         /// <summary>
+        /// Search word in horizontally, vertically, diagonally, reverse
+        /// </summary>
+
+        public List<XY> Search(string word)
+        {
+            List<XY> res = new List<XY>();
+            this.wordDetail = new WordDetail(matrix, word);
+            bool isFound = false;
+
+            res = HorizontalSearch(word);
+            if (res.Count == word.Length)
+            {
+                isFound = true;
+            }
+
+            if (!isFound)
+            {
+                res = HorizontalReverseSearch(word);
+                if (res.Count == word.Length)
+                {
+                    isFound = true;
+                }
+            }
+            if (!isFound)
+            {
+                res = VerticalDownwardSearch(word);
+                if (res.Count == word.Length)
+                {
+                    isFound = true;
+                }
+            }
+
+            if (!isFound)
+            {
+                res = VerticalUpwardSearch(word);
+                if (res.Count == word.Length)
+                {
+                    isFound = true;
+                }
+            }
+
+            if (!isFound)
+            {
+                res = DiagonalDownwardSearch(word);
+                if (res.Count == word.Length)
+                {
+                    isFound = true;
+                }
+            }
+
+            if (!isFound)
+            {
+                res = DiagonalUpwardSearch(word);
+                if (res.Count == word.Length)
+                {
+                    isFound = true;
+                }
+            }
+
+            if (!isFound)
+            {
+                res = Diagonal2DownwardSearch(word);
+                if (res.Count == word.Length)
+                {
+                    isFound = true;
+                }
+            }
+
+            if (!isFound)
+            {
+                res = Diagonal2UpwardSearch(word);
+                if (res.Count == word.Length)
+                {
+                    isFound = true;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
         /// Search word from left to right horizontally
         /// </summary>
-        
+
         public List<XY> HorizontalSearch(string word)
         {
             List<XY> res = new List<XY>();
