@@ -1,6 +1,8 @@
 # WordSearchPuzzle
 
-This repo contains a solution consist of two projects : (1) WordSearchPuzzle (main project) and (2) UnitProject1 (MSTest Project).
+This repo contains a solution consist of two projects : 
+#### (1) WordSearchPuzzle (main project) 
+#### (2) UnitProject1 (MSTest Project).
 
 ## Direction to run solution in visual studio:
 
